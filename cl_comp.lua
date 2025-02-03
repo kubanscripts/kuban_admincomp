@@ -7,7 +7,6 @@ AddEventHandler("kuban-comp:client:OpenCreateCompMenu", function()
     openCompensationMenu()
 end)
 
--- 📜 Open Compensation Menu
 function openCompensationMenu()
     local options = {
         {
@@ -39,7 +38,6 @@ function openCompensationMenu()
     lib.showContext("comp_main_menu")
 end
 
--- 📜 Select Item
 RegisterNetEvent("kuban-comp:client:SelectItem")
 AddEventHandler("kuban-comp:client:SelectItem", function()
     local input = lib.inputDialog("Select Item", {
@@ -52,7 +50,6 @@ AddEventHandler("kuban-comp:client:SelectItem", function()
     end
 end)
 
--- 📜 Select Amount
 RegisterNetEvent("kuban-comp:client:SelectAmount")
 AddEventHandler("kuban-comp:client:SelectAmount", function()
     local input = lib.inputDialog("Select Amount", {
@@ -66,14 +63,12 @@ AddEventHandler("kuban-comp:client:SelectAmount", function()
 end)
 
 
--- 📜 Set Selected Player (Online)
 RegisterNetEvent("kuban-comp:client:SetPlayer")
 AddEventHandler("kuban-comp:client:SetPlayer", function(playerId)
     selectedPlayer = playerId
     openCompensationMenu()
 end)
 
--- 📜 Select Offline Player
 RegisterNetEvent("kuban-comp:client:SelectOfflinePlayer")
 AddEventHandler("kuban-comp:client:SelectOfflinePlayer", function()
     local input = lib.inputDialog("Enter Offline Player ID", {
@@ -86,17 +81,15 @@ AddEventHandler("kuban-comp:client:SelectOfflinePlayer", function()
     end
 end)
 
--- 📜 Confirm Compensation & Trigger Server Event
 RegisterNetEvent("kuban-comp:client:ConfirmCompensation")
 AddEventHandler("kuban-comp:client:ConfirmCompensation", function()
     if selectedItem and selectedAmount then
-        TriggerServerEvent("kuban-comp:server:CreateComp", selectedItem, selectedAmount) -- ✅ Corrected event trigger
+        TriggerServerEvent("kuban-comp:server:CreateComp", selectedItem, selectedAmount) 
     else
         TriggerEvent("QBCore:Notify", "All fields must be filled!", "error")
     end
 end)
 
--- 📜 Copy Code to Clipboard
 RegisterNetEvent("kuban-comp:client:CopyCode")
 AddEventHandler("kuban-comp:client:CopyCode", function(code)
     lib.setClipboard(code)
