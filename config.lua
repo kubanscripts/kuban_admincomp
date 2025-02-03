@@ -1,6 +1,6 @@
 Config = {}
 Config.Webhook = 'YOUR_WEBOOK_HERE'
-
+Config.Inventory = "ox" -- Only ox or qb
 
 
 
