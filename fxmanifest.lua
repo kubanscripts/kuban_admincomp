@@ -12,6 +12,8 @@ game 'gta5'
 
 lua54 'yes'
 
+version '1.0.1'
+
 author 'KubanScripts'
 
 description 'Admin Compensation Resource using ox_lib'
