@@ -76,10 +76,17 @@ QBCore.Commands.Add("claimcomp", "Claim a compensation reward", {
         local item = claimData.item
         local amount = claimData.amount
         local Player = QBCore.Functions.GetPlayer(source)
+
         if Player then
-            Player.Functions.AddItem(item, amount)
-            TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[item], "add", amount)
+            if Config.Inventory == "qb" then
+                Player.Functions.AddItem(item, amount)
+                TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[item], "add", amount)
+            elseif Config.Inventory == "ox" then
+                exports.ox_inventory:AddItem(source, item, amount)
+                TriggerClientEvent("ox_inventory:notify", source, "Added " .. amount .. "x " .. item, "success")
+            end
         end
+
         deleteCompCode(code)
         TriggerClientEvent("QBCore:Notify", source, "You have successfully claimed your compensation!", "success")
         logToDiscord("✅ Compensation Claimed", 
