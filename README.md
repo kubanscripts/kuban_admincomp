@@ -15,3 +15,13 @@ Discord: [Click Here](https://discord.com/invite/UzVbtKEzgN)
 <br>
 
 [![thumbnail](https://r2.fivemanage.com/XsqgP28FfY2PpHVl7sArP/images/COMP.png)](https://www.youtube.com/@kubanscripts)
+
+Add this to SQL 
+CREATE TABLE `kuban_comp` (
+	`code` TEXT NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+	`item` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+	`amount` INT(11) NULL DEFAULT NULL
+)
+COLLATE='utf8mb3_general_ci'
+ENGINE=InnoDB
+;
