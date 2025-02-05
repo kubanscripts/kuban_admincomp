@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local webhookURL = Config.Webhook
+local webhookURL = 'YOUR_WEBOOK_HERE'
 
 local function generateCompCode()
     local charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
