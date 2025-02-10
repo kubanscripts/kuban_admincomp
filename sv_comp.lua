@@ -117,7 +117,7 @@ RegisterNetEvent("kuban-comp:server:ClaimComp", function(code)
                 elseif Config.Inventory == "ox" then
                     exports.ox_inventory:AddItem(src, item.name, item.amount)
                 elseif Config.Inventory == "qs" then
-                    TriggerEvent("qs-inventory:itemAdd", src, item.name, item.amount)
+                    exports["qs-inventory"]:AddItem(src, item.name, item.amount)
                 end
             end
         end
