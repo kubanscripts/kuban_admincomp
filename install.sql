@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS kuban_comp (
-    code VARCHAR(10) PRIMARY KEY,
-    item VARCHAR(50) NOT NULL,
-    amount INT NOT NULL,
-    playerId INT NULL
+CREATE TABLE `kuban_comp` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `code` VARCHAR(10) NOT NULL UNIQUE,
+    `type` VARCHAR(50) NOT NULL DEFAULT 'item',
+    `items` LONGTEXT NOT NULL
 );
