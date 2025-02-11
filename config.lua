@@ -8,7 +8,7 @@ Config = {}
 -- ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝
         
 
-Config.Inventory = "ox" -- Options: "qb", "ox" | QS Inventory Set it to "qb"
+Config.Inventory = "ox" -- Options: "qb", "ox", "qs"
 Config.Notification = "qb" -- Options: "qb", "ox", "okok", "qbx"                                                                                       
 Config.AmazingScripts = true -- Leave this on if you think our scripts are amazing!
 Config.VersionChecker = true 
