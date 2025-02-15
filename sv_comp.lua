@@ -68,7 +68,7 @@ end
 
 QBCore.Commands.Add("compmenu", "Open the compensation menu", {}, false, function(source)
     TriggerClientEvent("kuban-comp:client:OpenCompensationMenu", source)
-end, "admin")
+end)
 
 QBCore.Functions.CreateCallback("kuban-comp:server:IsAdmin", function(source, cb)
     local isAdmin = false
