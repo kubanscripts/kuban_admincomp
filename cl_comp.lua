@@ -22,16 +22,21 @@ local function SendNotification(message, notifType)
 end
 local function openCompensationMenu()
     local options = {}
-    table.insert(options, {
-        title = "Search Items",
-        icon = "search",
-        event = "kuban-comp:client:SearchItem"
-    })
+
+    if Config.Inventory == "ox" then
+        table.insert(options, {
+            title = "Search Items",
+            icon = "search",
+            event = "kuban-comp:client:SearchItem"
+        })
+    end
+
     table.insert(options, {
         title = "Add Item",
         icon = "plus",
         event = "kuban-comp:client:SelectItem"
     })
+
     for _, item in ipairs(selectedItems) do
         table.insert(options, {
             title = string.format("%s x%d", item.name, item.amount),
@@ -41,15 +46,18 @@ local function openCompensationMenu()
             args = item.name
         })
     end
+
     table.insert(options, {
         title = "Create Compensation",
         icon = "check",
         event = "kuban-comp:client:ConfirmCompensation",
         disabled = #selectedItems == 0
     })
+
     lib.registerContext({
         id = "comp_create_menu",
         title = "Create Compensation",
+        menu = 'comp_main_menu',
         options = options
     })
     lib.showContext("comp_create_menu")
@@ -59,13 +67,20 @@ RegisterNetEvent("kuban-comp:client:OpenCreateCompMenu", function()
     openCompensationMenu()
 end)
 RegisterNetEvent("kuban-comp:client:SelectItem", function()
-    local input = lib.inputDialog("Select Item", {
+    local inputFields = {
         { type = "input", label = "Item Name", required = true },
         { type = "number", label = "Amount", required = true, min = 1 }
-    })
-
+    }
+    if Config.AskTicket then
+        table.insert(inputFields, { type = "input", label = "Ticket Name", required = true })
+    end
+    local input = lib.inputDialog("Select Item", inputFields)
     if input and input[1] and input[2] then
-        table.insert(selectedItems, { name = input[1], amount = tonumber(input[2]) })
+        local newItem = { name = input[1], amount = tonumber(input[2]) }
+        if Config.AskTicket and input[3] then
+            newItem.ticket = input[3]
+        end
+        table.insert(selectedItems, newItem)
         openCompensationMenu()
     end
 end)
@@ -78,19 +93,26 @@ RegisterNetEvent("kuban-comp:client:SearchItem", function()
         TriggerServerEvent("kuban-comp:server:FetchItems", input[1]:lower())
     end
 end)
+
 ---@param itemName string The name of the selected item.
-RegisterNetEvent("kuban-comp:client:SelectSearchItem", function(itemName)
-    local input = lib.inputDialog("Enter Amount", {
-        { type = "number", label = "Amount", required = true, min = 1 }
+RegisterNetEvent("kuban-comp:client:SearchItem", function()
+    if Config.Inventory ~= "ox" then
+        SendNotification("Item search is only available for Ox Inventory!", "error")
+        return
+    end
+
+    local input = lib.inputDialog("Search Item", {
+        { type = "input", label = "Item Name", required = true }
     })
 
     if input and input[1] then
-        table.insert(selectedItems, { name = itemName, amount = tonumber(input[1]) })
-        openCompensationMenu()
+        TriggerServerEvent("kuban-comp:server:FetchItems", input[1]:lower())
     end
 end)
 ---@param items table The list of items found.
 RegisterNetEvent("kuban-comp:client:ShowSearchResults", function(items)
+    if Config.Inventory ~= "ox" then return end
+
     local options = {}
 
     if #items == 0 then
@@ -116,6 +138,7 @@ RegisterNetEvent("kuban-comp:client:ShowSearchResults", function(items)
     })
     lib.showContext("comp_search_results")
 end)
+
 RegisterNetEvent("kuban-comp:client:OpenCompensationMenu", function()
     QBCore.Functions.TriggerCallback("kuban-comp:server:IsAdmin", function(isAdmin)
         local options = {}
