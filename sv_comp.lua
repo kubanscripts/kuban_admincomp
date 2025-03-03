@@ -112,13 +112,9 @@ RegisterNetEvent("kuban-comp:server:ClaimComp", function(code)
         if Player then
             for _, item in ipairs(items) do
                 if Config.Inventory == "qb" then
-                    Player.Functions.AddItem(item.name, item.amount)
                     TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items[item.name], "add", item.amount)
                 elseif Config.Inventory == "ox" then
                     exports.ox_inventory:AddItem(src, item.name, item.amount)
-                elseif Config.Inventory == "qs" then
-                    Player.Functions.AddItem(item.name, item.amount)
-                    TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items[item.name], "add", item.amount)
                 end
             end
         end
