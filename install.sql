@@ -1,6 +1,0 @@
-CREATE TABLE `kuban_comp` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `code` VARCHAR(10) NOT NULL UNIQUE,
-    `type` VARCHAR(50) NOT NULL DEFAULT 'item',
-    `items` LONGTEXT NOT NULL
-);
